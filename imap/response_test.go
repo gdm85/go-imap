@@ -41,6 +41,12 @@ func TestResponseDecoders(t *testing.T) {
 		{`* OK [UIDVALIDITY 3857529045] UIDs valid`,
 			"Value", uint32(3857529045)},
 
+		// Test parsing both uint32, and uint64 highestmodseq
+		{`* OK [HIGHESTMODSEQ 4321]`,
+			"Value64", uint64(4321)},
+		{`* OK [HIGHESTMODSEQ 4294967296]`,
+			"Value64", uint64(4294967296)},
+
 		// Authentication challenge -> []byte
 		{`+ Welcome!`,
 			"Challenge", []byte(nil)},

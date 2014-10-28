@@ -266,6 +266,7 @@ func (raw *rawResponse) parseStatus() error {
 	if len(raw.tail) == 0 {
 		return raw.missing("status text", 0)
 	}
+
 	raw.Info = string(raw.tail)
 	raw.tail = nil
 	return nil
@@ -497,6 +498,8 @@ func (raw *rawResponse) parseAtom(astring bool) (f Field, err error) {
 		if c := norm[0]; '0' <= c && c <= '9' {
 			if ui, err := strconv.ParseUint(norm, 10, 32); err == nil {
 				f = uint32(ui)
+			} else if ui, err := strconv.ParseUint(norm, 10, 64); err == nil {
+				f = uint64(ui)
 			}
 		}
 		if f == nil {

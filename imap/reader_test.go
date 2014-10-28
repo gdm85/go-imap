@@ -323,7 +323,10 @@ func TestReaderParse(t *testing.T) {
 				"Astring", "[", "]", "[]", "[x]", "BODY[[]", "atom[specials", "atom]specials"}}},
 		{`* Number -1 0 1 1.0 4294967295 4294967296`,
 			&Response{Tag: "*", Type: Data, Label: "NUMBER", Fields: []Field{
-				"Number", "-1", uint32(0), uint32(1), "1.0", ^uint32(0), "4294967296"}}},
+				"Number", "-1", uint32(0), uint32(1), "1.0", ^uint32(0), uint64(4294967296)}}},
+		{`* Number -1 0 1 1.0 18446744073709551615 18446744073709551616`,
+			&Response{Tag: "*", Type: Data, Label: "NUMBER", Fields: []Field{
+				"Number", "-1", uint32(0), uint32(1), "1.0", ^uint64(0), "18446744073709551616"}}},
 		{`* Quoted "" *"" "\\\"" *"utf8"`,
 			&Response{Tag: "*", Type: Data, Label: "QUOTED", Fields: []Field{
 				"Quoted", `""`, `*""`, `"\\\""`, `*"utf8"`}}},

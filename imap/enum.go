@@ -159,3 +159,5 @@ func enumString(v uint32, names []enumName, goSyntax bool) string {
 	}
 	return s + "0x" + strconv.FormatUint(uint64(v), 16)
 }
+
+const MAXUINT32 = ^uint32(0)
